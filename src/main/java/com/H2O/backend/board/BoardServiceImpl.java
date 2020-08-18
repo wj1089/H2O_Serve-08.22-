@@ -9,20 +9,20 @@ import java.util.Optional;
 @Component
 interface BoardService {
     List<Board> findAll();
-    void delete(Board selectBoard);
+    void delete(Board board);
     Board update(Board selectBoard);
-    List<Board> findOneBoard(String medCategory);
     Board findTitle(String title);
+    List<Board> findOneBoard(String medCategory);
+    Optional<Board> findBoardNo(Long boardNo);
+
 }
     @Service
     public class BoardServiceImpl implements BoardService {
         private final BoardRepository boardRepository;
 
-
         public BoardServiceImpl(BoardRepository boardRepository) {
             this.boardRepository = boardRepository;
         }
-
 
         @Override
         public List<Board> findAll() {
@@ -35,18 +35,22 @@ interface BoardService {
         }
 
         @Override
+        public void delete(Board board) {
+            boardRepository.delete(board);
+        }
+
+        @Override
         public List<Board> findOneBoard(String medCategory) {
             return boardRepository.findAllByMedCategory(medCategory);
+        }
+
+        public Optional<Board> findBoardNo(Long boardNo) {
+            return boardRepository.findById(boardNo);
         }
 
         @Override
         public Board findTitle(String title) {
             return boardRepository.findAllByTitle(title);
-        }
-
-        @Override
-        public void delete(Board selectBoard) {
-            boardRepository.delete(selectBoard);
         }
     }
 

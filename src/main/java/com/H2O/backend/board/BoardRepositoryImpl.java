@@ -13,7 +13,6 @@ interface IBoardRepository {//I , 커스텀 쿼리를 짜서 컨트롤러로 보
     List<Board> findOneByWord(String cateWord);
 
 
-
 }
 
 @Repository
@@ -37,5 +36,7 @@ public class BoardRepositoryImpl extends QuerydslRepositorySupport implements IB
                 .limit(5)
                 .fetch();
     }
+
+
 
 }

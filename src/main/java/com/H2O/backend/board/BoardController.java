@@ -1,11 +1,8 @@
 package com.H2O.backend.board;
 
-import lombok.AllArgsConstructor;
+import com.H2O.backend.util.boardEnum.Messenger;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
-
-import javax.swing.text.AbstractDocument;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +19,7 @@ public class BoardController {
         this.boardRepository = boardRepository;
         this.boardService = boardService;
     }
+
 
     @PostMapping("/update")
     public ResponseEntity<List<Board>> getAllBoardList(@RequestBody Board board){
@@ -44,7 +42,6 @@ public class BoardController {
         boardRepository.save(Bdata);
         List<Board> boardList = boardService.findAll();
         return ResponseEntity.ok(boardList);
-
     }
 
     @GetMapping("/list")
@@ -54,21 +51,49 @@ public class BoardController {
         return ResponseEntity.ok(boardList);
     }
 
+
+    @GetMapping("/list/medCategory/{title}")
+    public Board getFindTitle(@PathVariable String title){
+        System.out.println(title);
+        Board findTitle = boardService.findTitle(title);
+        System.out.println(findTitle);
+        return findTitle;
+    }
+
+    @GetMapping("/list/getOne/{boardNo}")
+    public Optional<Board> getOneBoardNo(@PathVariable String boardNo){
+        return boardService.findBoardNo(Long.parseLong(boardNo));
+    }
+
+//    @DeleteMapping("/list/delete/{title}")
+//    public Messenger getDeleteBoard(@PathVariable String title){
+//        System.out.println(title);
+//        boardService.delete(title);
+//        return Messenger.SUCCEESS;
+//    }
+
+    @DeleteMapping("/list/delete/{boardNo}")
+    public Messenger getDeleteBoard(@PathVariable String boardNo){
+        Optional<Board> result = boardService.findBoardNo(Long.parseLong(boardNo));
+        Board deleteResult = result.get();
+        boardService.delete(deleteResult);
+        return Messenger.SUCCEESS;
+    }
+
+
     @GetMapping("/list/{medCategory}")
     public List<Board> getMedCateBoard(@PathVariable String medCategory){
+        System.out.println(medCategory);
         List<Board> findOne = boardService.findOneBoard(medCategory);
         System.out.println(findOne);
         return findOne;
     }
 
-    @GetMapping("/list/medCategory/{title}")
-    public Board getFindTitle(@PathVariable String title){
-        System.out.println(title);
-    Board findTitle = boardService.findTitle(title);
-        System.out.println(findTitle);
-        return findTitle;
+    @PostMapping("/modify")
+    public Messenger getModifyBoard(@RequestBody Board board){
+//        boardService.update(board);
+        return Messenger.SUCCEESS;
     }
-
 //    @GetMapping("/search")
 //    public BoardRepository(@Repository)
 

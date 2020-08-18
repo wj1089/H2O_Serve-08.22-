@@ -7,6 +7,7 @@ import lombok.*;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -21,7 +22,8 @@ public class Board {
     @Column(name = "hospital_star", nullable = true) private String hospitalStar;
     @Column(name = "title", nullable = false) private String title;
     @Column(name = "content", nullable = false) private String content;
-    @Column(name = "creation_date", nullable = false) private String creationDate;
+    @Column(name = "creation_date")
+    private LocalDate creationDate = LocalDate.now();
     @Column(name = "category", nullable = false) private String category;
     @Column(name = "med_Category", nullable = false) private String medCategory;
 
@@ -39,7 +41,8 @@ public class Board {
     private List<Comment> comment;*/
 
     @Builder
-    public Board(String hospitalStar, String title, String content,String medCategory, String creationDate, String category){
+    public Board(String hospitalStar, String title, String content,String medCategory,
+                 LocalDate creationDate, String category){
         this.hospitalStar=hospitalStar;
         this.title=title;
         this.content=content;
