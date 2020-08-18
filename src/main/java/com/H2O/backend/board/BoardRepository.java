@@ -16,7 +16,6 @@ public List<Board> findAllByMedCategory(String medCategory);
 
 public Board findAllByTitle(String title);
 
-
 public Board deleteAllByBoardNo(String boardNo);
 
 @Modifying(clearAutomatically = true, flushAutomatically = true)

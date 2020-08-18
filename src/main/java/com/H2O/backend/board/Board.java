@@ -5,7 +5,6 @@ import com.H2O.backend.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
-import javax.annotation.Nullable;
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -36,7 +35,7 @@ public class Board {
     @JoinColumn(name = "hospital_no")
     private Hospital hospital;
 
-/*    @JsonManagedReference
+/*  @JsonManagedReference
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Comment> comment;*/
 

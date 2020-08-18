@@ -52,12 +52,12 @@ public class BoardController {
     }
 
 
-    @GetMapping("/list/medCategory/{title}")
-    public Board getFindTitle(@PathVariable String title){
-        System.out.println(title);
-        Board findTitle = boardService.findTitle(title);
-        System.out.println(findTitle);
-        return findTitle;
+    @GetMapping("/list/medCategory/{BoarNo}")
+    public Board getFindTitle(@PathVariable String BoarNo){
+        System.out.println(BoarNo);
+        Board findBoarNo = boardService.findTitle(BoarNo);
+        System.out.println(findBoarNo);
+        return findBoarNo;
     }
 
     @GetMapping("/list/getOne/{boardNo}")
@@ -89,11 +89,17 @@ public class BoardController {
         return findOne;
     }
 
-    @PostMapping("/modify")
-    public Messenger getModifyBoard(@RequestBody Board board){
-//        boardService.update(board);
-        return Messenger.SUCCEESS;
+    @PostMapping("/list/modify")
+    public Messenger getModifyBoard(@RequestBody Board boardNo){
+        try{
+            boardRepository.save(boardNo);
+            return Messenger.SUCCEESS;
+        }catch (Exception e){
+            e.printStackTrace();
+            return Messenger.FAIL;
+        }
     }
+
 //    @GetMapping("/search")
 //    public BoardRepository(@Repository)
 

@@ -28,7 +28,7 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final StringPath content = createString("content");
 
-    public final StringPath creationDate = createString("creationDate");
+    public final DatePath<java.time.LocalDate> creationDate = createDate("creationDate", java.time.LocalDate.class);
 
     public final com.H2O.backend.hospital.QHospital hospital;
 

@@ -12,7 +12,6 @@ interface IBoardRepository {//I , 커스텀 쿼리를 짜서 컨트롤러로 보
 
     List<Board> findOneByWord(String cateWord);
 
-
 }
 
 @Repository

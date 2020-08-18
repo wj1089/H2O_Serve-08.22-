@@ -14,7 +14,7 @@ interface BoardService {
     Board findTitle(String title);
     List<Board> findOneBoard(String medCategory);
     Optional<Board> findBoardNo(Long boardNo);
-
+    Board modify(Board boardNo);
 }
     @Service
     public class BoardServiceImpl implements BoardService {
@@ -46,6 +46,12 @@ interface BoardService {
 
         public Optional<Board> findBoardNo(Long boardNo) {
             return boardRepository.findById(boardNo);
+        }
+
+
+        @Override
+        public Board modify(Board boardNo) {
+            return boardRepository.save(boardNo);
         }
 
         @Override
