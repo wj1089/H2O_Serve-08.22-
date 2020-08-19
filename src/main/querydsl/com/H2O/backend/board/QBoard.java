@@ -32,8 +32,6 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final com.H2O.backend.hospital.QHospital hospital;
 
-    public final StringPath hospitalStar = createString("hospitalStar");
-
     public final StringPath medCategory = createString("medCategory");
 
     public final StringPath title = createString("title");

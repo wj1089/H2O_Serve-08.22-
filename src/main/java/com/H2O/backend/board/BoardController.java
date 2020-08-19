@@ -1,8 +1,12 @@
 package com.H2O.backend.board;
 
 import com.H2O.backend.util.boardEnum.Messenger;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
+
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,19 +29,19 @@ public class BoardController {
     public ResponseEntity<List<Board>> getAllBoardList(@RequestBody Board board){
         Board Bdata = new Board();
         Bdata.setTitle(board.getTitle());
-        System.out.println(board.getTitle());
+//        System.out.println(board.getTitle());
 
         Bdata.setContent(board.getContent());
-        System.out.println(board.getContent());
+//        System.out.println(board.getContent());
 
         Bdata.setCreationDate(board.getCreationDate());
-        System.out.println(board.getCreationDate());
+//        System.out.println(board.getCreationDate());
 
         Bdata.setMedCategory(board.getMedCategory());
-        System.out.println(board.getMedCategory());
+//        System.out.println(board.getMedCategory());
 
         Bdata.setCategory(board.getCategory());
-        System.out.println(board.getCategory());
+//        System.out.println(board.getCategory());
 
         boardRepository.save(Bdata);
         List<Board> boardList = boardService.findAll();
@@ -60,17 +64,6 @@ public class BoardController {
         return findBoarNo;
     }
 
-    @GetMapping("/list/getOne/{boardNo}")
-    public Optional<Board> getOneBoardNo(@PathVariable String boardNo){
-        return boardService.findBoardNo(Long.parseLong(boardNo));
-    }
-
-//    @DeleteMapping("/list/delete/{title}")
-//    public Messenger getDeleteBoard(@PathVariable String title){
-//        System.out.println(title);
-//        boardService.delete(title);
-//        return Messenger.SUCCEESS;
-//    }
 
     @DeleteMapping("/list/delete/{boardNo}")
     public Messenger getDeleteBoard(@PathVariable String boardNo){
@@ -89,10 +82,15 @@ public class BoardController {
         return findOne;
     }
 
-    @PostMapping("/list/modify")
-    public Messenger getModifyBoard(@RequestBody Board boardNo){
+    @PatchMapping("/modify/{boardNo}")
+    public Messenger getModifyBoard(@RequestBody Board board,
+                                    @PathVariable String boardNo){
+        Optional<Board> getOne = boardService.findBoardNo(Long.parseLong(boardNo));
+        Board result =  getOne.get();
         try{
-            boardRepository.save(boardNo);
+            result.setContent(board.getContent());
+            result.setTitle(board.getTitle());
+            boardRepository.save(result);
             return Messenger.SUCCEESS;
         }catch (Exception e){
             e.printStackTrace();
@@ -100,7 +98,9 @@ public class BoardController {
         }
     }
 
-//    @GetMapping("/search")
-//    public BoardRepository(@Repository)
-
+    @GetMapping("/list/getOne/{boardNo}")
+    public Optional<Board> getOneBoardNo(@PathVariable String boardNo){
+        System.out.println(boardService.findBoardNo(Long.parseLong(boardNo)));
+        return boardService.findBoardNo(Long.parseLong(boardNo));
+    }
 }

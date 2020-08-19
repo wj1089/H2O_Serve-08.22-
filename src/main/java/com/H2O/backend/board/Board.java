@@ -18,7 +18,6 @@ public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_no") private Long boardNo;
-    @Column(name = "hospital_star", nullable = true) private String hospitalStar;
     @Column(name = "title", nullable = false) private String title;
     @Column(name = "content", nullable = false) private String content;
     @Column(name = "creation_date")
@@ -40,9 +39,8 @@ public class Board {
     private List<Comment> comment;*/
 
     @Builder
-    public Board(String hospitalStar, String title, String content,String medCategory,
+    public Board(String title, String content,String medCategory,
                  LocalDate creationDate, String category){
-        this.hospitalStar=hospitalStar;
         this.title=title;
         this.content=content;
         this.creationDate=creationDate;

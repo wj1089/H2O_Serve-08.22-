@@ -1,8 +1,10 @@
 package com.H2O.backend.board;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +16,7 @@ interface BoardService {
     Board findTitle(String title);
     List<Board> findOneBoard(String medCategory);
     Optional<Board> findBoardNo(Long boardNo);
-    Board modify(Board boardNo);
+    void modify(Board boardNo);
 }
     @Service
     public class BoardServiceImpl implements BoardService {
@@ -49,10 +51,9 @@ interface BoardService {
         }
 
 
-        @Override
-        public Board modify(Board boardNo) {
-            return boardRepository.save(boardNo);
-        }
+        @Override  @Modifying @Transactional
+        public void modify(Board boardNo) { boardRepository.modify(boardNo); }
+
 
         @Override
         public Board findTitle(String title) {

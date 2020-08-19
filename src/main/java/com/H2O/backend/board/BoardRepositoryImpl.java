@@ -12,6 +12,7 @@ interface IBoardRepository {//I , 커스텀 쿼리를 짜서 컨트롤러로 보
 
     List<Board> findOneByWord(String cateWord);
 
+    void modify(Board boardNo);
 }
 
 @Repository
@@ -36,6 +37,15 @@ public class BoardRepositoryImpl extends QuerydslRepositorySupport implements IB
                 .fetch();
     }
 
-
-
+    @Override
+    public void modify(Board boardNo) {
+            jpaQueryFactory
+                .update(board)
+                .where(board.boardNo.eq(boardNo.getBoardNo()))
+                    .set(board.title, boardNo.getTitle())
+                    .set(board.medCategory, boardNo.getMedCategory())
+                    .set(board.content, boardNo.getContent())
+                    .set(board.creationDate,boardNo.getCreationDate())
+                    .execute();
+    }
 }
