@@ -17,6 +17,8 @@ interface BoardService {
     List<Board> findOneBoard(String medCategory);
     Optional<Board> findBoardNo(Long boardNo);
     void modify(Board boardNo);
+    void click(Long boardNo);
+
 }
     @Service
     public class BoardServiceImpl implements BoardService {
@@ -53,6 +55,12 @@ interface BoardService {
 
         @Override  @Modifying @Transactional
         public void modify(Board boardNo) { boardRepository.modify(boardNo); }
+
+        @Override @Modifying @Transactional
+        public void click(Long boardNo) {
+            boardRepository.findOneByClick(boardNo);
+        }
+
 
 
         @Override

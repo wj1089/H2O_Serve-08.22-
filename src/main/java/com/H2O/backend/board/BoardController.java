@@ -1,12 +1,11 @@
 package com.H2O.backend.board;
 
 import com.H2O.backend.util.boardEnum.Messenger;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.file.Path;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +41,12 @@ public class BoardController {
 
         Bdata.setCategory(board.getCategory());
 //        System.out.println(board.getCategory());
+
+        Bdata.setClick(board.getClick());
+        System.out.println(board.getClick());
+
+        Bdata.setCreationDate(LocalDate.now());
+//        System.out.println(board.getCreationDate());
 
         boardRepository.save(Bdata);
         List<Board> boardList = boardService.findAll();
@@ -101,6 +106,12 @@ public class BoardController {
     @GetMapping("/list/getOne/{boardNo}")
     public Optional<Board> getOneBoardNo(@PathVariable String boardNo){
         System.out.println(boardService.findBoardNo(Long.parseLong(boardNo)));
+        boardService.click(Long.parseLong(boardNo));
         return boardService.findBoardNo(Long.parseLong(boardNo));
     }
+//
+//    @GetMapping("/click/{boardNo}")
+//    public Optional<Board> getOneClick(@PathVariable int boardNo){
+//        return;
+//    }
 }

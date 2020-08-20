@@ -26,6 +26,8 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final StringPath category = createString("category");
 
+    public final NumberPath<Integer> click = createNumber("click", Integer.class);
+
     public final StringPath content = createString("content");
 
     public final DatePath<java.time.LocalDate> creationDate = createDate("creationDate", java.time.LocalDate.class);

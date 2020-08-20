@@ -40,6 +40,7 @@ CREATE TABLE Board
     `Med_Category`   VARCHAR(20)     NULL,
     `User_No`        INT             NULL,
     `Hospital_No`    INT             NULL,
+    `Click`          INT             NULL,
     PRIMARY KEY (Board_No)
 )default character set utf8 collate UTF8_GENERAL_CI;
 CREATE TABLE User

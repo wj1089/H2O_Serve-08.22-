@@ -7,6 +7,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -20,10 +21,10 @@ public class Board {
     @Column(name = "board_no") private Long boardNo;
     @Column(name = "title", nullable = false) private String title;
     @Column(name = "content", nullable = false) private String content;
-    @Column(name = "creation_date")
-    private LocalDate creationDate = LocalDate.now();
+    @Column(name = "creation_date") private LocalDate creationDate;
     @Column(name = "category", nullable = false) private String category;
     @Column(name = "med_Category", nullable = false) private String medCategory;
+    @Column(name = "click") private int click;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_no")
@@ -40,11 +41,12 @@ public class Board {
 
     @Builder
     public Board(String title, String content,String medCategory,
-                 LocalDate creationDate, String category){
+                 LocalDate creationDate, String category, int click){
         this.title=title;
         this.content=content;
         this.creationDate=creationDate;
         this.category=category;
         this.medCategory=medCategory;
+        this.click=click;
     }
 }
